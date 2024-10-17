@@ -9,7 +9,7 @@ import (
 type User struct {
 	ID      string
 	NAME    string
-	AGE     string
+	AGE     int
 	ADDRESS string
 	EMAIL   string
 }

@@ -7,8 +7,8 @@ import (
 )
 
 func main() {
-	//unbufferedExample()
-	buffered()
+	// unbufferedExample()
+	// buffered()
 }
 
 func buffered() {

@@ -10,8 +10,8 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: sandbox
 #      MYSQL_USER: sandbox_user
-#      MYSQL_PASSWORD: passpass
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    #  MYSQL_PASSWORD: passpass
+      # MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     ports:
       - '3307:3306'
     volumes:
