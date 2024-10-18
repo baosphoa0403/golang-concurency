@@ -63,10 +63,8 @@ func main() {
 	}()
 
 	// Close the data channel after all workers are done
-	go func() {
-		wg.Wait()
-		close(ch)
-	}()
+	wg.Wait()
+	close(ch) // not use blocked forever
 
 	// Process results
 	// Open a file to write the SQL insert statements
@@ -82,7 +80,7 @@ func main() {
 		for _, user := range val {
 			// Generate SQL insert statement
 			sql := fmt.Sprintf(
-				"INSERT INTO users (id, name, age, address, email) VALUES (%s, '%s', %s, '%s', '%s');\n",
+				"INSERT INTO users (id, name, age, address, email) VALUES (%d, '%s', %d, '%s', '%s');\n",
 				user.ID, user.NAME, user.AGE, user.ADDRESS, user.EMAIL,
 			)
 			// Write the SQL statement to the file

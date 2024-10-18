@@ -94,26 +94,26 @@ func main() {
 	// approach 2
 	for {
 		select {
-		case val, ok := <-ch:
-			if !ok { // Channel closed
-				fmt.Println("No more data. Exiting loop.")
-				goto END_LOOP // Exit the loop
-			}
-			// Process the received data
-			for _, user := range val {
-				sql := fmt.Sprintf(
-					"INSERT INTO users (id, name, age, address, email) VALUES ('%s', '%s', %d, '%s', '%s');\n",
-					user.ID, user.NAME, user.AGE, user.ADDRESS, user.EMAIL,
-				)
-				_, err := file.WriteString(sql)
-				if err != nil {
-					fmt.Printf("Failed to write to file: %v\n", err)
-					return
+			case val, ok := <-ch:
+				if !ok { // Channel closed
+					fmt.Println("No more data. Exiting loop.")
+					goto END_LOOP // Exit the loop
 				}
-			}
-		default:
-			// Optionally do something while waiting for new data
-			time.Sleep(100 * time.Millisecond) // Avoid busy-waiting
+				// Process the received data
+				for _, user := range val {
+					sql := fmt.Sprintf(
+						"INSERT INTO users (id, name, age, address, email) VALUES ('%s', '%s', %d, '%s', '%s');\n",
+						user.ID, user.NAME, user.AGE, user.ADDRESS, user.EMAIL,
+					)
+					_, err := file.WriteString(sql)
+					if err != nil {
+						fmt.Printf("Failed to write to file: %v\n", err)
+						return
+					}
+				}
+			default:
+				// Optionally do something while waiting for new data
+				time.Sleep(100 * time.Millisecond) // Avoid busy-waiting
 		}
 	}
 
